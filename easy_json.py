@@ -55,11 +55,8 @@ def run():
      while True:
           print("repeat")
           wait(lambda: db != stable_db, timeout_seconds=None)
-          start_time = time.time()
           print("change")
           open_again()
-          end_time = time.time()
-          print('Total time elapsed: %.2f seconds' % (end_time - start_time))
 
 t1 = Thread(target=run)
 t1.start()

@@ -27,7 +27,7 @@ def talk(x):
 
 #start
 intents = discord.Intents.all()
-bot = commands.Bot(command_prefix=["m,","M,"],intents=intents)
+bot = commands.Bot(command_prefix=["mie,"],intents=intents)
 #bot = discord.Client(intents=intents)
 
 @bot.event
@@ -47,7 +47,10 @@ async def _talk(ctx,*,message:str):
     talk_channel = ctx.guild.get_channel(948462920155684885)
     if ctx.author.voice.channel == talk_channel:
       print("in voice")
-      vc = await talk_channel.connect()
+      try:
+        vc = await talk_channel.connect()
+      except:
+        print("Already connected to a voice channel.")
 
       talk_message =  xuly(message)
       talk(talk_message)
@@ -55,10 +58,11 @@ async def _talk(ctx,*,message:str):
       db[message] = talk_message
 
       vc = get(bot.voice_clients, guild=ctx.guild)
-      vc.play(FFmpegPCMAudio(executable="C:/FFmpeg/ffmpeg.exe", source="1.mp3"))
+      vc.play(FFmpegPCMAudio(executable="FFmpeg/ffmpeg.exe", source="1.mp3"))
 
   else:
     talk_message =  xuly(message)
+    db[message] = talk_message
     await ctx.reply(talk_message)
 
 
